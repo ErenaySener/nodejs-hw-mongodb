@@ -15,6 +15,12 @@ export const setupServer = () => {
 
   app.use(pino());
 
+  app.get('/', (req, res) => {
+  res.json({
+    message: 'Contacts API is running',
+  });
+});
+
   app.use(contactsRouter);
 
  app.use(notFoundHandler);
