@@ -5,11 +5,12 @@ import {
   registerUserController,
   loginUserController,
   refreshUserSessionController,
+  logoutUserController,
 } from '../controllers/auth.js';
 import {
   registerUserSchema,
   loginUserSchema,
-} from '../models/user.js';
+} from '../db/models/user.js';
 import validateBody from '../middlewares/validateBody.js';
 import { ctrlWrapper } from '../utils/ctrlWrapper.js';
 
@@ -30,6 +31,11 @@ router.post(
 router.post(
   '/refresh',
   ctrlWrapper(refreshUserSessionController),
+);
+
+router.post(
+  '/logout',
+  ctrlWrapper(logoutUserController),
 );
 
 export default router;
