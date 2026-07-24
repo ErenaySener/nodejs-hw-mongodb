@@ -2,8 +2,8 @@ import crypto from 'node:crypto';
 import bcrypt from 'bcrypt';
 import createHttpError from 'http-errors';
 
-import { User } from '../models/user.js';
-import { Session } from '../models/session.js';
+import User from '../db/models/user.js';
+import Session from '../db/models/session.js';
 
 const ACCESS_TOKEN_LIFETIME = 15 * 60 * 1000;
 const REFRESH_TOKEN_LIFETIME = 30 * 24 * 60 * 60 * 1000;
@@ -91,4 +91,10 @@ export const refreshUsersSession = async ({ sessionId, refreshToken }) => {
   });
 
   return newSession;
+};
+
+export const logoutUser = async sessionId => {
+  await Session.deleteOne({
+    _id: sessionId,
+  });
 };

@@ -23,7 +23,9 @@ const userSchema = new mongoose.Schema(
   },
 );
 
-export const User = mongoose.model('User', userSchema);
+const User = mongoose.model('User', userSchema);
+
+export default User;
 
 export const registerUserSchema = Joi.object({
   name: Joi.string().min(3).max(20).required(),

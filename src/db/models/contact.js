@@ -1,5 +1,5 @@
-import mongoose from 'mongoose';
-import Joi from 'joi';
+import mongoose from "mongoose";
+import Joi from "joi";
 
 const contactSchema = new mongoose.Schema(
   {
@@ -20,9 +20,15 @@ const contactSchema = new mongoose.Schema(
     },
     contactType: {
       type: String,
-      enum: ['work', 'home', 'personal'],
+      enum: ["work", "home", "personal"],
       required: true,
-      default: 'personal',
+      default: "personal",
+    },
+
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
     },
   },
   {
@@ -30,14 +36,14 @@ const contactSchema = new mongoose.Schema(
   },
 );
 
-export const Contact = mongoose.model('Contact', contactSchema);
+export const Contact = mongoose.model("Contact", contactSchema);
 
 export const createContactSchema = Joi.object({
   name: Joi.string().min(3).max(20).required(),
   phoneNumber: Joi.string().min(3).max(20).required(),
   email: Joi.string().email(),
   isFavourite: Joi.boolean(),
-  contactType: Joi.string().valid('work', 'home', 'personal'),
+  contactType: Joi.string().valid("work", "home", "personal"),
 });
 
 export const updateContactSchema = Joi.object({
@@ -45,5 +51,5 @@ export const updateContactSchema = Joi.object({
   phoneNumber: Joi.string().min(3).max(20),
   email: Joi.string().email(),
   isFavourite: Joi.boolean(),
-  contactType: Joi.string().valid('work', 'home', 'personal'),
+  contactType: Joi.string().valid("work", "home", "personal"),
 }).min(1);
